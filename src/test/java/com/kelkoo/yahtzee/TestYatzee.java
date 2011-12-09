@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class TestYatzee {
 	
@@ -15,11 +16,12 @@ public class TestYatzee {
 	      when(diceLauncher.launch()).thenReturn(new Dices(1, 1, 3, 3, 4));
 	      User user = mock(User.class);
 	      Yatzee yatzee = new Yatzee(diceLauncher, user);
-	      yatzee.start();
-	      verify(diceLauncher).launch();
-	      verify(user).notifyDicesLaunched();
 	      
-	      assertThat("not good", yatzee.getCurrentDices(), equalTo(new Dices(1, 1, 3, 3, 4)));
+	      yatzee.start();
+	      
+	      verify(diceLauncher).launch();
+	      verify(user).notifyDicesLaunched(Mockito.any(Dices.class));
+	      
 	}
 
 }

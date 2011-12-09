@@ -2,20 +2,17 @@ package com.kelkoo.yahtzee;
 
 public class Yatzee {
 	
-	private Dices currentDices;
 	private DiceLauncher diceLauncher;
 	private final User user;
 
 	public Yatzee(DiceLauncher diceLauncher, User user) {
 		this.diceLauncher = diceLauncher;
 		this.user = user;
-		
+		this.user.setYatzee(this);
 	}
 
-	public void start() {
-		currentDices = diceLauncher.launch();
-		
-		
+	public void start() {		
+		user.notifyDicesLaunched(diceLauncher.launch());		
 	}
 
 	public Boolean finished() {
@@ -27,8 +24,8 @@ public class Yatzee {
 		return null;
 	}
 
-	public Dices getCurrentDices() {
-		return currentDices;
-	}
+   public void notifySelectDices(int... diceNumber) {
+      throw new RuntimeException("Not Implemented Yet");
+   }
 
 }
