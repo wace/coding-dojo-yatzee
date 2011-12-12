@@ -19,8 +19,16 @@ public class Yatzee {
       throw new RuntimeException("Not Implemented Yet");
    }
 
-   public void receivedUserChoice(int i, int j) {
+   public void receivedUserChoice(int ... l) {
       throw new RuntimeException("Not Implemented Yet");
+   }
+
+   public void receivedUserWantRethrow() {
+      throw new RuntimeException("Not Implemented Yet");
+   }
+
+   public Boolean finished() {
+      return true;
    }
 
 }

@@ -2,18 +2,28 @@ package com.kelkoo.yahtzee;
 
 public class User {
 
-   private Dices dices;
+   private Yatzee yatzee;
+   
+//   private Dices dices;
 
-   public void selectDices(int i, int j) {
-      throw new RuntimeException("Not Implemented Yet");
+   public void selectDices(int ... diceValues) {
+      yatzee.receivedUserChoice(diceValues);
    }
 
    public void canSelectDices(Dices result) {
       throw new RuntimeException("Not Implemented Yet");
    }
 
-   public Dices getDices() {
-      return dices;
+   public void setYatzee(Yatzee yatzee) {
+      this.yatzee = yatzee;
    }
+
+   public void wantRethrow() {
+      yatzee.receivedUserWantRethrow();
+   }
+
+//   public Dices getDices() {
+//      return dices;
+//   }
 
 }

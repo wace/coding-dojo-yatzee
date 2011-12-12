@@ -13,6 +13,7 @@ public class TestYatzee {
       User user = mock(User.class);
       Yatzee yatzee =  new Yatzee(diceLauncherMock, user);
       Dices result = new Dices();
+      
       when(diceLauncherMock.launch()).thenReturn(result);
       
       yatzee.start();
