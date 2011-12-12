@@ -6,4 +6,9 @@ public class DiceLauncher {
       throw new RuntimeException("Not Implemented Yet");
    }
 
+   
+   public void setNbDicesToLaunch() {
+      throw new RuntimeException("Not Implemented Yet");
+   }
+
 }

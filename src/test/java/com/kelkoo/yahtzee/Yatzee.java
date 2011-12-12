@@ -8,6 +8,7 @@ public class Yatzee {
    public Yatzee(DiceLauncher diceLauncher, User user) {
       this.diceLauncher = diceLauncher;
       this.user = user;
+      this.user.setYatzee(this);
    }
 
    public void start() {
@@ -19,8 +20,16 @@ public class Yatzee {
       throw new RuntimeException("Not Implemented Yet");
    }
 
-   public void receivedUserChoice(int i, int j) {
+   public void receiveUserSelectDices(int... i) {
       throw new RuntimeException("Not Implemented Yet");
+   }
+
+   public void receiveUserWantRethrow() {
+      throw new RuntimeException("Not Implemented Yet");
+   }
+
+   public Boolean finished() {
+      return true;
    }
 
 }

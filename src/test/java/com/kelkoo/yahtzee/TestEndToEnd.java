@@ -18,6 +18,7 @@ public class TestEndToEnd {
       User user = new User();
       Yatzee yatzee = new Yatzee(diceLauncher, user);
       yatzee.start();
+      // TODO check dices values
       user.selectDices(1, 1);
       user.wantRethrow();
       user.selectDices(1);

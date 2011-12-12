@@ -1,6 +1,5 @@
 package com.kelkoo.yahtzee;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
@@ -19,9 +18,4 @@ public class TestYatzee {
 
       verify(user).canSelectDices(result);
    }
-   
-
-   
-   
-
 }
