@@ -4,6 +4,8 @@ public class Yatzee {
 	
 	private DiceLauncher diceLauncher;
 	private final User user;
+   private Dices selectDices;
+	
 
 	public Yatzee(DiceLauncher diceLauncher, User user) {
 		this.diceLauncher = diceLauncher;
@@ -12,8 +14,12 @@ public class Yatzee {
 	}
 
 	public void start() {		
-		user.notifyDicesLaunched(diceLauncher.launch());		
+		notifyThrowDice();
 	}
+
+   private void notifyThrowDice() {
+      user.notifyDicesLaunched(diceLauncher.launch());
+   }
 
 	public Boolean finished() {
 		return true;
@@ -24,8 +30,15 @@ public class Yatzee {
 		return null;
 	}
 
-   public void notifySelectDices(int... diceNumber) {
-      throw new RuntimeException("Not Implemented Yet");
+   public void notifySelectDices(Dices dices) {
+      selectDices = dices; 
    }
 
+   public Dices getSelectedDices() {
+      return selectDices;
+   }
+
+   public void notifyWantRethrow() {
+      notifyThrowDice();
+   }
 }

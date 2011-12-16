@@ -4,28 +4,47 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestUser {
+   
+   private User user;
 
+   @Before
+   public void setup() {
+      user = new User();      
+   }
+   
    @Test
    public void testSelectDices() {
-      User u = new User();
       Yatzee yatzeeMock = mock(Yatzee.class);
-      u.setYatzee(yatzeeMock);
+      user.setYatzee(yatzeeMock);
       
-      u.selectDices(1);
+      Dices dices = new Dices(1);
+      user.selectDices(dices);
       
-      verify(yatzeeMock).notifySelectDices(1);
+      verify(yatzeeMock).notifySelectDices(dices);
    }
 
    @Test
-   public void testNotifyDicesLaunched()
-   {
-      User u = new User();
+   public void testNotifyDicesLaunched(){
       
+      user.notifyDicesLaunched(new Dices(1, 3, 3));
       
+      assertThat(user.getLaunchedDices(), equalTo(new Dices(1,3,3)));
+   }
+
+   @Test
+   public void testWantRethrow() {
+      Yatzee yatzeeMock = mock(Yatzee.class);
+      user.setYatzee(yatzeeMock);
       
+      user.wantRethrow();
+      
+      verify(yatzeeMock).notifyWantRethrow();
    }
 
 }

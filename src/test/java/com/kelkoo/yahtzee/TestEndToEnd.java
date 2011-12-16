@@ -18,11 +18,11 @@ public class TestEndToEnd {
       User user = new User();
       Yatzee yatzee = new Yatzee(diceLauncher, user);
       yatzee.start();
-      user.selectDices(1, 1);
+      user.selectDices(new Dices(1,1));
       user.wantRethrow();
-      user.selectDices(1);
+      user.selectDices(new Dices(1));
       user.wantRethrow();
-      user.selectDices(1);
+      user.selectDices(new Dices(1));
       assertThat("should be finished", yatzee.finished(), is(true));
       assertThat(yatzee.score(), is(4));
    }
