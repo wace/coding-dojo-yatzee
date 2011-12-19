@@ -49,8 +49,7 @@ public class TestYatzee {
 
    @Test
    public void testFinished() throws Exception {
-      
-      
+      fail("not implemnted");
       
    }
 }
