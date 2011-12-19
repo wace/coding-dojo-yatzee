@@ -18,7 +18,6 @@ public class TestEndToEnd {
       User user = new User();
       Yatzee yatzee = new Yatzee(diceLauncher, user);
       yatzee.start();
-      // TODO check dices values
       user.selectDices(1, 1);
       user.wantRethrow();
       user.selectDices(1);
@@ -28,7 +27,12 @@ public class TestEndToEnd {
       assertThat(yatzee.score(), is(4));
    }
 
-   
+   /*
+    * TODO LIST
+    * - check dices values
+    * - keep "all" selected dices for each turn
+    * 
+    */
 
    // control no more than three throws
    // manage multiple figures categories (1..6)

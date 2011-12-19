@@ -4,6 +4,7 @@ public class Yatzee {
 
    private final DiceLauncher diceLauncher;
    private final User user;
+   private Dices selectedDices;
 
    public Yatzee(DiceLauncher diceLauncher, User user) {
       this.diceLauncher = diceLauncher;
@@ -21,15 +22,20 @@ public class Yatzee {
    }
 
    public void receiveUserSelectDices(int... i) {
-      throw new RuntimeException("Not Implemented Yet");
+      selectedDices = new Dices(i);
    }
 
    public void receiveUserWantRethrow() {
-      throw new RuntimeException("Not Implemented Yet");
+      Dices result = diceLauncher.launch();
+      user.canSelectDices(result);
    }
 
    public Boolean finished() {
-      return true;
+      throw new RuntimeException("Not Implemented Yet");
+   }
+
+   public Dices getSelectedDices() {
+      return selectedDices;
    }
 
 }
