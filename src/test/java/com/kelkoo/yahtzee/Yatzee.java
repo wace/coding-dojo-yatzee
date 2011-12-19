@@ -13,6 +13,10 @@ public class Yatzee {
    }
 
    public void start() {
+      throwDices();
+   }
+
+   private void throwDices() {
       Dices launch = diceLauncher.launch();
       user.canSelectDices(launch);
    }
@@ -26,8 +30,7 @@ public class Yatzee {
    }
 
    public void receiveUserWantRethrow() {
-      Dices result = diceLauncher.launch();
-      user.canSelectDices(result);
+      throwDices();
    }
 
    public Boolean finished() {
