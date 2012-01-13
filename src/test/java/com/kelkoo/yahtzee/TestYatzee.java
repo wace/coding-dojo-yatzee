@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -47,5 +48,29 @@ public class TestYatzee {
       
       verify(user).notifyDicesLaunched(dices);
    }
+   
+   @Test
+   public void testScore()
+   {
+      Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+      
+      yatzee.notifySelectDices(new Dices(1,1,1));
+      
+      assertThat(yatzee.score(), equalTo(3));
+      
+      yatzee.notifySelectDices(new Dices(1,1));
 
+      assertThat(yatzee.score(), equalTo(5));
+   }
+   
+   @Test
+   public void testScoreThreeTimes() throws Exception {
+
+      Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+      
+      yatzee.notifySelectDices(new Dices(1,1,1));
+      
+      assertThat(yatzee.score(), equalTo(3));
+      assertThat(yatzee.score(), equalTo(3));
+   }
 }

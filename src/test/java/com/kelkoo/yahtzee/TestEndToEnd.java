@@ -15,7 +15,7 @@ public class TestEndToEnd {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
       when(diceLauncher.launch()).thenReturn(new Dices(1, 1, 3, 3, 4)).thenReturn(new Dices(1, 6, 6))
             .thenReturn(new Dices(1, 2));
-      User user = new User();
+      User user = new User(); 
       Yatzee yatzee = new Yatzee(diceLauncher, user);
       yatzee.start();
       user.selectDices(new Dices(1,1));
