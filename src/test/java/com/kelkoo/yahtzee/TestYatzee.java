@@ -31,13 +31,6 @@ public class TestYatzee {
    }
 
    @Test
-   public void testReceiveUserSelectDices() throws Exception {
-      yatzee.receiveUserSelectDices(1, 1);
-
-      assertThat(yatzee.getSelectedDices(), equalTo(new Dices(1, 1)));
-   }
-
-   @Test
    public void testReceiveUserWantRethrow() {
       Dices result = new Dices();
       when(diceLauncherMock.launch()).thenReturn(result);
@@ -48,8 +41,43 @@ public class TestYatzee {
    }
 
    @Test
-   public void testFinished() throws Exception {
-      fail("not implemnted");
-      
+   public void testFinishedAfter3Launches() throws Exception {
+      this.yatzee.start();
+      this.yatzee.receiveUserWantRethrow();
+      this.yatzee.receiveUserWantRethrow();
+      assertTrue("yatzee should be finished",yatzee.finished());
    }
+   
+   @Test
+   public void testNotFinishedAfter2Launches() throws Exception {
+      this.yatzee.start();
+      this.yatzee.receiveUserWantRethrow();
+      assertFalse("yatzee should not be finished", yatzee.finished());
+   }
+
+   @Test
+   public void testScoreAfterUserSelection()
+   {
+      this.yatzee.receiveUserSelectDices(1,1);
+      this.yatzee.receiveUserSelectDices(1);
+      this.yatzee.receiveUserSelectDices();
+      
+      assertThat(yatzee.score(), equalTo(3));
+   }
+   
+   @Test
+   public void testScoreAfterStart() throws Exception {
+      yatzee.start();
+      
+      assertThat(yatzee.score(), equalTo(0));
+   }
+
+   @Test(expected=BadSelectedDices.class)
+   public void testUserSelectDicesAreCorrect()
+   {
+      Dices result = new Dices(1,2,3);
+      when(diceLauncherMock.launch()).thenReturn(result);
+      yatzee.receiveUserSelectDices(1,4);
+   }
+   
 }
