@@ -48,8 +48,36 @@ public class TestYatzee {
    }
 
    @Test
+   public void testNotFinished() throws Exception {
+      receiveUserSelectDicesNTimes(2);
+      assertThat(yatzee.finished(), equalTo(false));
+   }
+
+   @Test
    public void testFinished() throws Exception {
-      fail("not implemnted");
-      
+      receiveUserSelectDicesNTimes(3);
+      assertThat(yatzee.finished(), equalTo(true));
+   }
+
+   @Test(expected=TooManyThrowsException.class)
+   public void testNoMoreThatThreeThrows() throws Exception {
+      receiveUserSelectDicesNTimes(4);
+   }
+
+   private void receiveUserSelectDicesNTimes(int nbTurns) throws TooManyThrowsException {
+      for (int turn = 0; turn<nbTurns; turn++) {
+         yatzee.receiveUserSelectDices(1);
+      }
+   }
+
+   @Test
+   public void testScore2() throws Exception {
+      receiveUserSelectDicesNTimes(2);
+      assertThat(yatzee.score(), equalTo(2));
+   }
+   @Test
+   public void testScore3() throws Exception {
+      receiveUserSelectDicesNTimes(3);
+      assertThat(yatzee.score(), equalTo(3));
    }
 }

@@ -19,7 +19,7 @@ public class TestUser {
    }
 
    @Test
-   public void testSelectDices() {
+   public void testSelectDices() throws TooManyThrowsException {
       user.selectDices(1, 1);
 
       verify(yatzee).receiveUserSelectDices(1, 1);
