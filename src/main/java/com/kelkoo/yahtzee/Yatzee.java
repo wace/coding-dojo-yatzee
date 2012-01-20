@@ -6,6 +6,7 @@ public class Yatzee {
    private final User user;
    private Dices selectDices = new Dices();
    private int score = 0;
+   public Integer selectedCategory;
 
 
    public Yatzee(DiceLauncher diceLauncher, User user) {
@@ -27,7 +28,7 @@ public class Yatzee {
    }
 
    public Integer score() {
-      return selectDices.sum();
+      return score;
    }
 
    public void notifySelectDices(Dices dices) {
@@ -40,5 +41,9 @@ public class Yatzee {
 
    public void notifyWantRethrow() {
       notifyThrowDice();
+   }
+
+   public void notifySelectCategory(int category) {
+      score = selectDices.sum(category);
    }
 }

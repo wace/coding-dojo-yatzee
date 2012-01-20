@@ -44,10 +44,12 @@ public class Dices {
       return new ToStringBuilder(this).append("diceValues", diceValues).toString();
    }
 
-   public Integer sum() {
+   public Integer sum(int category) {
       int score = 0;
       for (Integer value : diceValues) {
-         score += value;
+         if (value == category) {
+            score += value;
+         }
       }
       return score;
    }

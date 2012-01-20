@@ -25,4 +25,8 @@ public class User {
    Dices getLaunchedDices() {
       return launchedDices;
    }
+
+   public void selectCategory(int i) {
+      yatzee.notifySelectCategory(i);
+   }
 }

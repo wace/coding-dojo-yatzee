@@ -14,4 +14,13 @@ public class TestDices {
       dices.add(new Dices(2));      
       assertThat(dices, equalTo(new Dices(1,1,2)));
    }
+   
+   @Test
+   public void sum() throws Exception {
+      Dices dices = new Dices(1,1,2,2);
+      
+      int sum = dices.sum(2);
+      
+      assertThat(sum, is(4));
+   }
 }
