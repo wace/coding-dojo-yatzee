@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 public class TestYatzee {
    
@@ -56,11 +57,14 @@ public class TestYatzee {
    }
 
    @Test
-   public void testScoreAfterUserSelection()
+   public void testScoreAfterUserSelection() throws Exception
    {
-      this.yatzee.receiveUserSelectDices(1,1);
-      this.yatzee.receiveUserSelectDices(1);
-      this.yatzee.receiveUserSelectDices();
+      Dices result = new Dices(1,1,1);
+      when(diceLauncherMock.launch()).thenReturn(result);
+      yatzee.start();
+      yatzee.receiveUserSelectDices(1,1);
+      yatzee.receiveUserSelectDices(1);
+      yatzee.receiveUserSelectDices();
       
       assertThat(yatzee.score(), equalTo(3));
    }
@@ -73,11 +77,22 @@ public class TestYatzee {
    }
 
    @Test(expected=BadSelectedDices.class)
-   public void testUserSelectDicesAreCorrect()
+   public void testBadSelectedDicesWhenDiceNotReceived() throws BadSelectedDices
    {
       Dices result = new Dices(1,2,3);
       when(diceLauncherMock.launch()).thenReturn(result);
+      
+      yatzee.start();
       yatzee.receiveUserSelectDices(1,4);
    }
    
+   @Test(expected=BadSelectedDices.class)
+   public void testBadSelectedDicesWhenDiceIsSelectedTwice() throws BadSelectedDices
+   {
+      Dices result = new Dices(1,2,3);
+      when(diceLauncherMock.launch()).thenReturn(result);
+      
+      yatzee.start();
+      yatzee.receiveUserSelectDices(1,1);
+   }
 }

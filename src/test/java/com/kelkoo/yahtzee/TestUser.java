@@ -19,7 +19,7 @@ public class TestUser {
    }
 
    @Test
-   public void testSelectDices() {
+   public void testSelectDices() throws Exception {
       user.selectDices(1, 1);
 
       verify(yatzee).receiveUserSelectDices(1, 1);

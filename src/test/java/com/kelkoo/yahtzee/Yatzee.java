@@ -24,20 +24,22 @@ public class Yatzee {
    private void throwDices() {
       launchDices = diceLauncher.launch();
       user.canSelectDices(launchDices);
-      launchCounter ++;
+      launchCounter++;
    }
 
    public Integer score() {
       return score;
    }
 
-   public void receiveUserSelectDices(int... dices) {
-      //TODO
-      // compare user selected dices with launch dices
+   public void receiveUserSelectDices(Integer... dices) throws BadSelectedDices {
       selectedDices = new Dices(dices);
+      if (!launchDices.contains(selectedDices)) {
+         throw new BadSelectedDices("tricheur");
+      }
       for (int dice : dices) {
          score += dice;
       }
+
    }
 
    public void receiveUserWantRethrow() {

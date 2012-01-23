@@ -5,7 +5,7 @@ public class User {
    private Dices dices;
    private Yatzee yatzee;
 
-   public void selectDices(int ...i) {
+   public void selectDices(Integer ...i) throws BadSelectedDices {
       this.yatzee.receiveUserSelectDices(i);
    }
 
