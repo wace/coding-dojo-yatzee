@@ -11,9 +11,12 @@ import dojo.yatzee.Yatzee;
 
 public class TestEndToEnd {
 
+   
+   
+   
    // Finishes when category of one is done
    @Test 
-   // @Ignore
+   //@Ignore
    public void playWithCategoryOfOnesWithOneUserThreeTurns() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
       when(diceLauncher.launch()).
