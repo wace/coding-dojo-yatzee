@@ -48,7 +48,7 @@ public class TestUser {
    }
 
    @Test
-   public void testSelectCategory() {
+   public void testSelectCategory() throws CategoryAlreadySelectedException {
       Yatzee yatzeeMock = mock(Yatzee.class);
       user.setYatzee(yatzeeMock);
       

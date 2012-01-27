@@ -26,7 +26,7 @@ public class User {
       return launchedDices;
    }
 
-   public void selectCategory(int i) {
+   public void selectCategory(int i) throws CategoryAlreadySelectedException {
       yatzee.notifySelectCategory(i);
    }
 }

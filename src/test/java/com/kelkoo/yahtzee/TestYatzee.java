@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 public class TestYatzee {
 
    @Test
-   public void testStart() {
+   public void testStart() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
       when(diceLauncher.launch()).thenReturn(new Dices(1, 1, 3, 3, 4));
       User user = mock(User.class);
@@ -35,7 +35,7 @@ public class TestYatzee {
    }
 
    @Test
-   public void testNotifyWantRethrow() {
+   public void testNotifyWantRethrow() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
       Dices dices = new Dices(1, 1, 3, 3, 4);
       when(diceLauncher.launch()).thenReturn(dices);
@@ -47,22 +47,30 @@ public class TestYatzee {
       verify(user).notifyDicesLaunched(dices);
    }
 
-
-
    @Test
-   public void notifySelectCategory() {
+   public void notifySelectCategory() throws Exception {
       Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
       yatzee.notifySelectDices(new Dices(1, 1, 1));
 
       yatzee.notifySelectCategory(1);
 
       assertThat(yatzee.score(), equalTo(3));
+   }
+   
+   @Test
+   public void testScore() throws Exception {
+      Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+      yatzee.notifySelectDices(new Dices(1, 1, 1));
+      yatzee.notifySelectCategory(1);
 
+      yatzee.notifySelectDices(new Dices(2, 2, 2));
+      yatzee.notifySelectCategory(2);
+
+      assertThat(yatzee.score(), equalTo(9));
    }
 
    @Test
    public void notifySelectCategoryDifferentFromSelectedDices() throws Exception {
-
       Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
       yatzee.notifySelectDices(new Dices(1, 1, 1));
 
@@ -72,7 +80,6 @@ public class TestYatzee {
    }
 
    @Test(expected=CategoryAlreadySelectedException.class)
-   
    public void notifySelectCategoryPossibleOnlyOnce() throws Exception {
 
       Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
@@ -82,4 +89,41 @@ public class TestYatzee {
 
    }
 
+   @Test
+      public void isFinished() throws CategoryAlreadySelectedException {
+         Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+         
+         yatzee.notifySelectCategory(1);
+         yatzee.notifySelectCategory(2);
+         
+         assertThat(yatzee.isFinished(), is(true));
+      }
+
+   @Test
+   public void notFinished() throws CategoryAlreadySelectedException {
+      Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+      
+      yatzee.notifySelectCategory(1);
+      
+      assertThat(yatzee.isFinished(), is(false));
+   }
+   
+   @Test (expected=NumberThrowsExceededException.class)
+   public void controlNoMoreThanThreeThrows() throws Exception {
+      Yatzee yatzee = new Yatzee(new DiceLauncher(), mock(User.class));
+      
+      yatzee.notifyWantRethrow();
+      yatzee.notifyWantRethrow();
+      yatzee.notifyWantRethrow();      
+      yatzee.notifyWantRethrow();
+      
+   }
+
+   
+   
+   
+   
+   
+   
+   
 }

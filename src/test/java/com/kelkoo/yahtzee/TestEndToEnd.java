@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class TestEndToEnd {
 
-   // finishes when reach three throws
    @Test
    public void playWithCategoryOfOnesWithOneUserThreeTurns() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
@@ -26,7 +25,7 @@ public class TestEndToEnd {
       user.wantRethrow();
       user.selectDices(new Dices(1));
       user.selectCategory(1);
-      assertThat("should not be finished", yatzee.finished(), is(false));
+      assertThat("should not be finished", yatzee.isFinished(), is(false));
       assertThat(yatzee.score(), is(4));
 
       user.selectDices(new Dices(2,2));
@@ -34,13 +33,11 @@ public class TestEndToEnd {
       user.wantRethrow();
       user.selectDices(new Dices(2));
       user.selectCategory(2);      
-      assertThat("should be finished", yatzee.finished(), is(true));
+      assertThat("should be finished", yatzee.isFinished(), is(true));
       assertThat(yatzee.score(), is(10));
    }
  
-   
 
-   // control no more than three throws
    // manage multiple figures categories (1..6)
    // manage other categories (brelan, carre, full, petite suite, grande suite, yatzee, chance)
    // manage figures bonus
