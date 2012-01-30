@@ -28,5 +28,9 @@ public class User {
    public void wantRethrow() {
       this.yatzee.receiveUserWantRethrow();
    }
+
+   public void selectCategory(int category) {
+      this.yatzee.receiveUserSelectCategory(category);
+   }
    
 }

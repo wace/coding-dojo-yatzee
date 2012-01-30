@@ -49,4 +49,8 @@ public class Yatzee {
    public Boolean finished() {
       return launchCounter >= 3;
    }
+
+   public void receiveUserSelectCategory(int i) {
+      throw new RuntimeException("Not Implemented Yet");
+   }
 }

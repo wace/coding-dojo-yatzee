@@ -1,5 +1,6 @@
 package com.kelkoo.yahtzee;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -38,9 +39,18 @@ public class Dices {
       return false;
    }
 
-   public boolean contains(Dices dices) {
-      List<Integer> dicesList = Arrays.asList(dices.dices);
-      List<Integer> currentDiceslist = Arrays.asList(this.dices);
-      return currentDiceslist.containsAll(dicesList);
+   public boolean contains(Dices otherDices) {
+      List<Integer> otherDicesList = Arrays.asList(otherDices.dices);
+      ArrayList<Integer> currentDicesList = new ArrayList<Integer> (Arrays.asList(this.dices));
+
+      for (Integer dice : otherDicesList) {
+         if (!currentDicesList.contains(dice)) {
+            return false;
+         } else{
+            currentDicesList.remove(dice);
+         }
+      }
+      
+      return true;
    }
 }

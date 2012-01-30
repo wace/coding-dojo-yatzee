@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 
 public class TestYatzee {
-   
+
    private DiceLauncher diceLauncherMock;
    private User user;
    private Yatzee yatzee;
@@ -46,9 +46,9 @@ public class TestYatzee {
       this.yatzee.start();
       this.yatzee.receiveUserWantRethrow();
       this.yatzee.receiveUserWantRethrow();
-      assertTrue("yatzee should be finished",yatzee.finished());
+      assertTrue("yatzee should be finished", yatzee.finished());
    }
-   
+
    @Test
    public void testNotFinishedAfter2Launches() throws Exception {
       this.yatzee.start();
@@ -57,42 +57,44 @@ public class TestYatzee {
    }
 
    @Test
-   public void testScoreAfterUserSelection() throws Exception
-   {
-      Dices result = new Dices(1,1,1);
+   public void testScoreAfterUserSelection() throws Exception {
+      Dices result = new Dices(1, 1, 1);
       when(diceLauncherMock.launch()).thenReturn(result);
       yatzee.start();
-      yatzee.receiveUserSelectDices(1,1);
+      yatzee.receiveUserSelectDices(1, 1);
       yatzee.receiveUserSelectDices(1);
       yatzee.receiveUserSelectDices();
-      
+
       assertThat(yatzee.score(), equalTo(3));
    }
-   
+
    @Test
    public void testScoreAfterStart() throws Exception {
       yatzee.start();
-      
+
       assertThat(yatzee.score(), equalTo(0));
    }
 
-   @Test(expected=BadSelectedDices.class)
-   public void testBadSelectedDicesWhenDiceNotReceived() throws BadSelectedDices
-   {
-      Dices result = new Dices(1,2,3);
+   @Test(expected = BadSelectedDices.class)
+   public void testBadSelectedDicesWhenDiceNotReceived() throws BadSelectedDices {
+      Dices result = new Dices(1, 2, 3);
       when(diceLauncherMock.launch()).thenReturn(result);
-      
+
       yatzee.start();
-      yatzee.receiveUserSelectDices(1,4);
+      yatzee.receiveUserSelectDices(1, 4);
    }
-   
-   @Test(expected=BadSelectedDices.class)
-   public void testBadSelectedDicesWhenDiceIsSelectedTwice() throws BadSelectedDices
-   {
-      Dices result = new Dices(1,2,3);
+
+   @Test(expected = BadSelectedDices.class)
+   public void testBadSelectedDicesWhenDiceIsSelectedTwice() throws BadSelectedDices {
+      Dices result = new Dices(1, 2, 3);
       when(diceLauncherMock.launch()).thenReturn(result);
-      
+
       yatzee.start();
-      yatzee.receiveUserSelectDices(1,1);
+      yatzee.receiveUserSelectDices(1, 1);
+   }
+
+   @Test
+   public void receiveUserSelectCategory() {
+      // TODO check score calculation
    }
 }

@@ -35,10 +35,17 @@ public class TestUser {
    @Test
    public void testCanSelectDices() {
       Dices dices = new Dices(1, 1, 1, 3, 4);
-      
+
       user.canSelectDices(dices);
-      
+
       assertThat(user.getDices(), equalTo(dices));
+   }
+
+   @Test
+   public void selectCategory() {
+      user.selectCategory(1);
+      
+      verify(yatzee).receiveUserSelectCategory(1);
    }
 
 }

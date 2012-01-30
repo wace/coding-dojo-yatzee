@@ -12,8 +12,13 @@ public class TestEndToEnd {
    @Test
    public void playWithCategoryOfOnesWithOneUserThreeTurns() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
-      when(diceLauncher.launch()).thenReturn(new Dices(1, 1, 3, 3, 4)).thenReturn(new Dices(1, 6, 6))
-            .thenReturn(new Dices(1, 2));
+      when(diceLauncher.launch()).
+         thenReturn(new Dices(1, 1, 3, 3, 4)).
+         thenReturn(new Dices(1, 6, 6)).
+         thenReturn(new Dices(1, 2)).
+         thenReturn(new Dices(1, 1, 2, 3, 4)).
+         thenReturn(new Dices(1, 2, 4, 6)).
+         thenReturn(new Dices(1, 2, 3));
       User user = new User();
       Yatzee yatzee = new Yatzee(diceLauncher, user);
       yatzee.start();
@@ -22,13 +27,23 @@ public class TestEndToEnd {
       user.selectDices(1);
       user.wantRethrow();
       user.selectDices(1);
-      assertThat("should be finished", yatzee.finished(), is(true));
+      user.selectCategory(1);
+      assertThat("should not be finished", yatzee.finished(), is(false));
       assertThat(yatzee.score(), is(4));
+      
+      user.selectDices(2);
+      user.wantRethrow();
+      user.selectDices(2);
+      user.wantRethrow();
+      user.selectDices(2);
+      user.selectCategory(2);
+      assertThat("should be finished", yatzee.finished(), is(true));
+      assertThat(yatzee.score(), is(10));
+      
    }
 
    /*
     * TODO LIST
-    * - check dices values
     * - keep "all" selected dices for each turn
     * 
     */
