@@ -23,11 +23,12 @@ public class Yatzee {
       this.user.setYatzee(this);
    }
 
-   public void start() {		
+   public void start() {	
       launchDicesAndNotifyToUser();
    }
 
-   private void launchDicesAndNotifyToUser() {
+   private void launchDicesAndNotifyToUser() {  
+      nbThrows++;
       user.notifyDicesLaunched(diceLauncher.launch());   
    }
 
@@ -52,7 +53,6 @@ public class Yatzee {
          throw new NumberThrowsExceededException();
       }
       launchDicesAndNotifyToUser();
-      nbThrows++;
    }
 
    public void notifySelectCategory(int category) throws CategoryAlreadySelectedException {
@@ -61,5 +61,10 @@ public class Yatzee {
       }
       score += selectedDices.sum(category);
       selectedCategories.add(category);
+      nbThrows=0;
+   }
+
+   public Integer getNbThrow() {
+      return nbThrows;
    }
 }

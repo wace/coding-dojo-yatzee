@@ -10,7 +10,7 @@ public class User {
       yatzee.notifySelectDices(dices);
    }
 
-   public void wantRethrow() {
+   public void wantRethrow() throws NumberThrowsExceededException {
       yatzee.notifyWantRethrow();
    }
 
