@@ -40,13 +40,13 @@ public class Yatzee {
       this.user.setYatzee(this);
    }
 
-   public void start() {
+   public void start() {	
       launchDicesAndNotifyToUser();
    }
 
-   private void launchDicesAndNotifyToUser() {
+   private void launchDicesAndNotifyToUser() {  
       nbThrows++;
-      user.notifyDicesLaunched(diceLauncher.launch());
+      user.notifyDicesLaunched(diceLauncher.launch());   
    }
 
    public Boolean isFinished() {
@@ -84,4 +84,5 @@ public class Yatzee {
    public Dices getSelectedDices() {
       return turn.getSelectedDices();
    }
+
 }
