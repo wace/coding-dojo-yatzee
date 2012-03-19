@@ -38,7 +38,7 @@ public class TestUser {
    }
 
    @Test
-   public void testWantRethrow() {
+   public void testWantRethrow() throws Exception {
       Yatzee yatzeeMock = mock(Yatzee.class);
       user.setYatzee(yatzeeMock);
 

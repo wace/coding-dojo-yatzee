@@ -10,6 +10,7 @@ import org.junit.Test;
 public class TestEndToEnd {
 
    @Test
+//   @Ignore
    public void playWithCategoryOfOnesWithOneUserThreeTurns() throws Exception {
       DiceLauncher diceLauncher = mock(DiceLauncher.class);
       when(diceLauncher.launch())
@@ -37,13 +38,14 @@ public class TestEndToEnd {
       assertThat(yatzee.score(), is(10));
    }
  
-
-   // manage multiple figures categories (1..6)
-   // manage other categories (brelan, carre, full, petite suite, grande suite, yatzee, chance)
-   // manage figures bonus
-   // manage multiples users
-   // implement interface with terminal
-   // implement web interface
-   // implement network gaming
+   // FIXME remove the getNbThrow in Yatzee
+   
+   // TODO manage multiple figures categories (1..6)
+   // TODO manage other categories (brelan, carre, full, petite suite, grande suite, yatzee, chance)
+   // TODO manage figures bonus
+   // TODO manage multiples users
+   // TODO implement interface with terminal
+   // TODO implement web interface
+   // TODO implement network gaming
 
 }
