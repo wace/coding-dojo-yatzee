@@ -42,10 +42,11 @@ public class TestUser {
    }
 
    @Test
-   public void selectCategory() {
+   public void selectCategory() throws Exception {
       user.selectCategory(1);
       
       verify(yatzee).receiveUserSelectCategory(1);
    }
+
 
 }

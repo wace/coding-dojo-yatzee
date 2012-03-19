@@ -1,5 +1,8 @@
 package com.kelkoo.yahtzee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Yatzee {
 
    private final DiceLauncher diceLauncher;
@@ -8,6 +11,7 @@ public class Yatzee {
    private Dices launchDices;
    private int launchCounter;
    private int score;
+   private List<Integer> selectedCategories = new ArrayList<Integer>();
 
    public Yatzee(DiceLauncher diceLauncher, User user) {
       this.diceLauncher = diceLauncher;
@@ -36,10 +40,6 @@ public class Yatzee {
       if (!launchDices.contains(selectedDices)) {
          throw new BadSelectedDices("tricheur");
       }
-      for (int dice : dices) {
-         score += dice;
-      }
-
    }
 
    public void receiveUserWantRethrow() {
@@ -50,7 +50,13 @@ public class Yatzee {
       return launchCounter >= 3;
    }
 
-   public void receiveUserSelectCategory(int i) {
-      throw new RuntimeException("Not Implemented Yet");
+   public void receiveUserSelectCategory(int selectedCat) throws CategoryAlreadySelected {
+      if(selectedCategories.contains(selectedCat)) {
+         throw new CategoryAlreadySelected();
+      }
+      selectedCategories.add(selectedCat);
+
+      score = selectedDices.getScore(selectedCat);
+
    }
 }

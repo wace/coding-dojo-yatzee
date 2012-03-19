@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class Dices {
 
-   private final Integer[] dices;
+   public final Integer[] dices;
 
    public Dices(Integer... dices) {
       this.dices = dices;
@@ -53,4 +53,17 @@ public class Dices {
       
       return true;
    }
+
+   public Integer getScore(int selectedCategory) {
+      Integer score = 0;
+      if(dices != null) {
+         for (Integer dice: dices) {
+            if(dice == selectedCategory) {
+               score += dice;
+            }
+         }
+      }
+      return score;
+   } 
+   
 }

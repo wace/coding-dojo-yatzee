@@ -28,4 +28,9 @@ public class TestDices {
       assertThat(dices.contains(new Dices(1,1)), is(false));
    }
 
+   @Test
+   public void scoreForCategoryIsTrue() {
+      Dices dices = new Dices(1, 2, 3);
+      assertThat(dices.getScore(1), is(1));
+   }
 }

@@ -29,7 +29,7 @@ public class User {
       this.yatzee.receiveUserWantRethrow();
    }
 
-   public void selectCategory(int category) {
+   public void selectCategory(int category) throws CategoryAlreadySelected {
       this.yatzee.receiveUserSelectCategory(category);
    }
    

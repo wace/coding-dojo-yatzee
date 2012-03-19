@@ -57,18 +57,6 @@ public class TestYatzee {
    }
 
    @Test
-   public void testScoreAfterUserSelection() throws Exception {
-      Dices result = new Dices(1, 1, 1);
-      when(diceLauncherMock.launch()).thenReturn(result);
-      yatzee.start();
-      yatzee.receiveUserSelectDices(1, 1);
-      yatzee.receiveUserSelectDices(1);
-      yatzee.receiveUserSelectDices();
-
-      assertThat(yatzee.score(), equalTo(3));
-   }
-
-   @Test
    public void testScoreAfterStart() throws Exception {
       yatzee.start();
 
@@ -93,8 +81,29 @@ public class TestYatzee {
       yatzee.receiveUserSelectDices(1, 1);
    }
 
-   @Test
-   public void receiveUserSelectCategory() {
-      // TODO check score calculation
+   @Test(expected=CategoryAlreadySelected.class)
+   public void anErrorIsThrownWhenUserSelectACategoryTwice() throws Exception {
+      Dices result = new Dices(1, 2, 3);
+      when(diceLauncherMock.launch()).thenReturn(result);
+
+      yatzee.start();
+      // TODO: selectedDice is null, should be mocked
+      yatzee.receiveUserSelectCategory(1);
+      yatzee.receiveUserSelectCategory(1);
    }
+   
+   @Test
+   public void whenReceiveUserSelectCategoryThenScoreIsComputed() throws Exception {   
+      Dices result = new Dices(1, 1, 1);
+      when(diceLauncherMock.launch()).thenReturn(result);
+      yatzee.start();
+      yatzee.receiveUserSelectDices(1, 1);
+      yatzee.receiveUserSelectDices(1);
+      yatzee.receiveUserSelectDices();
+      yatzee.receiveUserSelectCategory(2);
+      assertThat(yatzee.score(), equalTo(0));            
+   }
+
+   // TODO check score calculation
+
 }
