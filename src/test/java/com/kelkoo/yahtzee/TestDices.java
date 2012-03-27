@@ -33,4 +33,12 @@ public class TestDices {
       Dices dices = new Dices(1, 2, 3);
       assertThat(dices.getScore(1), is(1));
    }
+
+   @Test
+   public void add() throws Exception {
+      Dices dices = new Dices(1,2);
+      dices.add(new Dices(1));
+      assertThat(dices, is(new Dices(1,2,1)));
+   }
+
 }

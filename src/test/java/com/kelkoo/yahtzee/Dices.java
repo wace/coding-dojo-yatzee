@@ -9,11 +9,10 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class Dices {
 
-   public final Integer[] dices;
+   public Integer[] dices = new Integer[] {};
 
    public Dices(Integer... dices) {
       this.dices = dices;
-
    }
 
    public Object size() {
@@ -64,6 +63,14 @@ public class Dices {
          }
       }
       return score;
+   }
+
+   public void add(Dices dices) {
+     List<Integer> list = new ArrayList<Integer>(Arrays.asList(this.dices));
+     list.addAll(Arrays.asList(dices.dices));
+     this.dices = list.toArray(new Integer[0]);
    } 
+   
+   
    
 }

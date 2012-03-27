@@ -42,20 +42,44 @@ public class TestYatzee {
    }
 
    @Test
-   public void testFinishedAfter3Launches() throws Exception {
+   public void testTurnFinishedAfter3Launches() throws Exception {
       this.yatzee.start();
       this.yatzee.receiveUserWantRethrow();
       this.yatzee.receiveUserWantRethrow();
-      assertTrue("yatzee should be finished", yatzee.finished());
+      assertTrue("turn should be finished", yatzee.turnFinished());
    }
 
    @Test
-   public void testNotFinishedAfter2Launches() throws Exception {
+   public void testTurnNotFinishedAfter2Launches() throws Exception {
       this.yatzee.start();
       this.yatzee.receiveUserWantRethrow();
-      assertFalse("yatzee should not be finished", yatzee.finished());
+      assertFalse("turn should not be finished", yatzee.turnFinished());
    }
 
+   @Test
+   public void yatzeeNotFinishedAfterOneTurn() throws Exception {
+      when(diceLauncherMock.launch()).thenReturn(new Dices(1, 2, 3));
+      yatzee.start();
+      yatzee.receiveUserSelectDices(1);
+      
+      yatzee.receiveUserSelectCategory(1);
+      
+      assertThat(yatzee.finished(), is(false));
+   }
+
+   @Test
+   public void yatzeeNotFinishedAfter2Turn() throws Exception {
+      when(diceLauncherMock.launch()).thenReturn(new Dices(1, 2, 3));
+      yatzee.start();
+      yatzee.receiveUserSelectDices(1);
+      yatzee.receiveUserSelectCategory(1);
+      yatzee.receiveUserSelectDices(2);
+
+      yatzee.receiveUserSelectCategory(2);
+      
+      assertThat(yatzee.finished(), is(true));
+   }
+   
    @Test
    public void testScoreAfterStart() throws Exception {
       yatzee.start();
@@ -87,7 +111,7 @@ public class TestYatzee {
       when(diceLauncherMock.launch()).thenReturn(result);
 
       yatzee.start();
-      // TODO: selectedDice is null, should be mocked
+      yatzee.receiveUserSelectDices(1);
       yatzee.receiveUserSelectCategory(1);
       yatzee.receiveUserSelectCategory(1);
    }
