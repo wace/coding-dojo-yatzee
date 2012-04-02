@@ -69,7 +69,7 @@ public class TestYatzee {
       when(diceLauncherMock.launch()).thenReturn(result);
 
       yatzee.start();
-      yatzee.receiveUserSelectDices(1, 4);
+      yatzee.receiveUserSelectedDices(1, 4);
    }
 
    @Test(expected = BadSelectedDices.class)
@@ -78,7 +78,7 @@ public class TestYatzee {
       when(diceLauncherMock.launch()).thenReturn(result);
 
       yatzee.start();
-      yatzee.receiveUserSelectDices(1, 1);
+      yatzee.receiveUserSelectedDices(1, 1);
    }
 
    @Test(expected=CategoryAlreadySelected.class)
@@ -87,7 +87,7 @@ public class TestYatzee {
       when(diceLauncherMock.launch()).thenReturn(result);
 
       yatzee.start();
-      // TODO: selectedDice is null, should be mocked
+      yatzee.receiveUserSelectedDices(1);
       yatzee.receiveUserSelectCategory(1);
       yatzee.receiveUserSelectCategory(1);
    }
@@ -97,9 +97,9 @@ public class TestYatzee {
       Dices result = new Dices(1, 1, 1);
       when(diceLauncherMock.launch()).thenReturn(result);
       yatzee.start();
-      yatzee.receiveUserSelectDices(1, 1);
-      yatzee.receiveUserSelectDices(1);
-      yatzee.receiveUserSelectDices();
+      yatzee.receiveUserSelectedDices(1, 1);
+      yatzee.receiveUserSelectedDices(1);
+      yatzee.receiveUserSelectedDices();
       yatzee.receiveUserSelectCategory(2);
       assertThat(yatzee.score(), equalTo(0));            
    }

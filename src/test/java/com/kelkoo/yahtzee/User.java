@@ -6,7 +6,7 @@ public class User {
    private Yatzee yatzee;
 
    public void selectDices(Integer ...i) throws BadSelectedDices {
-      this.yatzee.receiveUserSelectDices(i);
+      this.yatzee.receiveUserSelectedDices(i);
    }
 
    public void canSelectDices(Dices result) {

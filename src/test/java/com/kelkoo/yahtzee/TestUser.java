@@ -22,7 +22,7 @@ public class TestUser {
    public void testSelectDices() throws Exception {
       user.selectDices(1, 1);
 
-      verify(yatzee).receiveUserSelectDices(1, 1);
+      verify(yatzee).receiveUserSelectedDices(1, 1);
    }
 
    @Test
