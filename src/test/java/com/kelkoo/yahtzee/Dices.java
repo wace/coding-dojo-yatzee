@@ -64,6 +64,13 @@ public class Dices {
          }
       }
       return score;
+   }
+
+   public Dices add(Dices selectedDices) {
+      List<Integer> l = new ArrayList<Integer>(Arrays.asList(dices));
+      l.addAll(Arrays.asList(selectedDices.dices));
+      
+      return new Dices((Integer[]) l.toArray(new Integer[]{}));
    } 
    
 }

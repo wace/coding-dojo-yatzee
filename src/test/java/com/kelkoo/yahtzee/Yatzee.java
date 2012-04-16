@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Yatzee {
 
+   private int NB_CATEGORIES_TO_PLAY = 2;
+   
    public static class Turn {
       private Dices selectedDices;
       private Dices launchedDices;
@@ -18,7 +20,7 @@ public class Yatzee {
       }
 
       public void setSelectedDices(Dices selectedDices) throws BadSelectedDices {
-         this.selectedDices = selectedDices;
+         this.selectedDices = selectedDices.add(selectedDices);
          checkSelectedDices();
       }
 
@@ -90,7 +92,7 @@ public class Yatzee {
       throwDices();
    }
 
-   public Boolean finished() {
+   public Boolean currentTurnFinished() {
       return turn.isFinished();
    }
 
@@ -102,5 +104,9 @@ public class Yatzee {
 
       score = turn.computeScore(selectedCat);
 
+   }
+
+   public Boolean gameFinished() {
+      return selectedCategories.size() >= NB_CATEGORIES_TO_PLAY;
    }
 }
