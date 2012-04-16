@@ -26,7 +26,7 @@ public class TestYatzee {
       Dices result = new Dices();
       when(diceLauncherMock.launch()).thenReturn(result);
 
-      yatzee.start();
+      yatzee.startGame();
 
       verify(user).canSelectDices(result);
    }
@@ -43,7 +43,7 @@ public class TestYatzee {
 
    @Test
    public void testTurnFinishedAfter3Launches() throws Exception {
-      this.yatzee.start();
+      this.yatzee.startGame();
       this.yatzee.receiveUserWantRethrow();
       this.yatzee.receiveUserWantRethrow();
       assertTrue("yatzee should be finished", yatzee.currentTurnFinished());
@@ -51,14 +51,14 @@ public class TestYatzee {
 
    @Test
    public void testNotFinishedAfter2Launches() throws Exception {
-      this.yatzee.start();
+      this.yatzee.startGame();
       this.yatzee.receiveUserWantRethrow();
       assertFalse("yatzee should not be finished", yatzee.currentTurnFinished());
    }
 
    @Test
    public void testScoreAfterStart() throws Exception {
-      yatzee.start();
+      yatzee.startGame();
 
       assertThat(yatzee.score(), equalTo(0));
    }
@@ -67,7 +67,7 @@ public class TestYatzee {
    public void testScoreAfterTwoLaunches() throws Exception {
       Dices result = new Dices(1, 1, 1);
       when(diceLauncherMock.launch()).thenReturn(result);
-      yatzee.start();      
+      yatzee.startGame();      
       yatzee.receiveUserSelectedDices(1, 1);
       yatzee.receiveUserSelectedDices(1);   
       yatzee.receiveUserSelectCategory(1);
@@ -80,7 +80,7 @@ public class TestYatzee {
       Dices result = new Dices(1, 2, 3);
       when(diceLauncherMock.launch()).thenReturn(result);
 
-      yatzee.start();
+      yatzee.startGame();
       yatzee.receiveUserSelectedDices(1, 4);
    }
 
@@ -89,7 +89,7 @@ public class TestYatzee {
       Dices result = new Dices(1, 2, 3);
       when(diceLauncherMock.launch()).thenReturn(result);
 
-      yatzee.start();
+      yatzee.startGame();
       yatzee.receiveUserSelectedDices(1, 1);
    }
 
@@ -98,17 +98,17 @@ public class TestYatzee {
       Dices result = new Dices(1, 2, 3);
       when(diceLauncherMock.launch()).thenReturn(result);
 
-      yatzee.start();
+      yatzee.startGame();
       yatzee.receiveUserSelectedDices(1);
       yatzee.receiveUserSelectCategory(1);
       yatzee.receiveUserSelectCategory(1);
    }
    
    @Test
-   public void whenReceiveUserSelectCategoryThenScoreIsComputed() throws Exception {   
+   public void whenReceiveUserSelectWrongCategoryThenScoreIsComputed() throws Exception {   
       Dices result = new Dices(1, 1, 1);
       when(diceLauncherMock.launch()).thenReturn(result);
-      yatzee.start();
+      yatzee.startGame();
       yatzee.receiveUserSelectedDices(1, 1);
       yatzee.receiveUserSelectedDices(1);
       yatzee.receiveUserSelectedDices();
@@ -121,19 +121,43 @@ public class TestYatzee {
    {
       Dices result = new Dices(1, 1, 1);
       when(diceLauncherMock.launch()).thenReturn(result);
-      this.yatzee.start();
+      this.yatzee.startGame();
       assertThat(yatzee.gameFinished(), is(false));
 
       yatzee.receiveUserSelectedDices();
       yatzee.receiveUserSelectCategory(2);
+      
+      this.yatzee.receiveUserWantRethrow();
       yatzee.receiveUserSelectedDices();
       yatzee.receiveUserSelectCategory(1);
       assertThat(yatzee.gameFinished(), is(true));
       
-      
-      
    }
 
    // TODO check score calculation
+   @Test
+   public void whenReceiveUserSelectCategoryThenScoreIsComputed() throws Exception {   
+      Dices result = new Dices(1, 1, 1);
+      when(diceLauncherMock.launch()).thenReturn(result);
+      yatzee.startGame();
+      yatzee.receiveUserSelectedDices(1, 1);
+      yatzee.receiveUserSelectedDices(1);
+      yatzee.receiveUserSelectedDices();
+      yatzee.receiveUserSelectCategory(1);
+      assertThat(yatzee.score(), equalTo(3));            
+   }
 
+   @Test
+   public void scoreAfterTwoTurns() throws Exception {   
+      Dices result = new Dices(1, 1, 1);
+      when(diceLauncherMock.launch()).thenReturn(result).thenReturn(new Dices (2,2,3)) ;
+
+      yatzee.startGame();
+      yatzee.receiveUserSelectedDices(1, 1);
+      yatzee.receiveUserSelectCategory(1);
+      
+      yatzee.receiveUserSelectedDices(2, 2);
+      yatzee.receiveUserSelectCategory(2);
+      assertThat(yatzee.score(), equalTo(6));
+   }
 }

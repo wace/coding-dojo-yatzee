@@ -8,7 +8,7 @@ public class Yatzee {
    private int NB_CATEGORIES_TO_PLAY = 2;
    
    public static class Turn {
-      private Dices selectedDices;
+      private Dices selectedDices = new Dices();
       private Dices launchedDices;
       private int launchCounter = 0;
 
@@ -19,9 +19,9 @@ public class Yatzee {
          return selectedDices;
       }
 
-      public void setSelectedDices(Dices selectedDices) throws BadSelectedDices {
-         this.selectedDices = selectedDices.add(selectedDices);
-         checkSelectedDices();
+      public void setSelectedDices(Dices dices) throws BadSelectedDices {
+         this.selectedDices.add(dices);
+         checkSelectedDices(dices);
       }
 
       public Dices getLaunchedDices() {
@@ -42,8 +42,8 @@ public class Yatzee {
          launchCounter++;
       }
 
-      public void checkSelectedDices() throws BadSelectedDices {
-         if (!launchedDices.contains(selectedDices)) {
+      public void checkSelectedDices(Dices dices) throws BadSelectedDices {
+         if (!launchedDices.contains(dices)) {
             throw new BadSelectedDices("tricheur");
          }
       }
@@ -71,7 +71,7 @@ public class Yatzee {
       this.score = 0;
    }
 
-   public void start() {
+   public void startGame() {
       throwDices();
    }
 
@@ -102,8 +102,11 @@ public class Yatzee {
       }
       selectedCategories.add(selectedCat);
 
-      score = turn.computeScore(selectedCat);
-
+      score += turn.computeScore(selectedCat);
+      if (!gameFinished()){
+         turn = new Turn();
+         throwDices();
+      }
    }
 
    public Boolean gameFinished() {

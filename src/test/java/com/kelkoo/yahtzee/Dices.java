@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Dices {
 
-   public final Integer[] dices;
+   public Integer[] dices;
 
    public Dices(Integer... dices) {
       this.dices = dices;
-
    }
 
    public Object size() {
@@ -66,11 +66,14 @@ public class Dices {
       return score;
    }
 
-   public Dices add(Dices selectedDices) {
+   public void add(Dices selectedDices) {
       List<Integer> l = new ArrayList<Integer>(Arrays.asList(dices));
       l.addAll(Arrays.asList(selectedDices.dices));
-      
-      return new Dices((Integer[]) l.toArray(new Integer[]{}));
+      this.dices = (Integer[]) l.toArray(new Integer[]{});
    } 
    
+   @Override
+   public String toString() {
+      return new ToStringBuilder(this).append("dices", dices).toString();
+   }
 }

@@ -21,7 +21,7 @@ public class TestEndToEnd {
          thenReturn(new Dices(1, 2, 3));
       User user = new User();
       Yatzee yatzee = new Yatzee(diceLauncher, user);
-      yatzee.start();
+      yatzee.startGame();
       user.selectDices(1, 1);
       user.wantRethrow();
       user.selectDices(1);
@@ -38,7 +38,7 @@ public class TestEndToEnd {
       user.wantRethrow();
       user.selectDices(2);
       user.selectCategory(2);
-      assertThat("should be finished", yatzee.currentTurnFinished(), is(true));
+      assertThat("should be finished", yatzee.gameFinished(), is(true));
       assertThat(yatzee.score(), is(10));
       
    }
